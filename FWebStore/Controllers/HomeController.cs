@@ -6,7 +6,8 @@ namespace FWebStore.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Данные из первого кортроллера");
+            //return Content("Данные из первого кортроллера");
+            return View("Index");
         }
     }
 }
