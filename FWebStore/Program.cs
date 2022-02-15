@@ -10,7 +10,7 @@ services.AddControllersWithViews(); //Основная инфраструкту�
 #region Сборка приложения
 
 var app = builder.Build();
-//app.Urls.Add("http://80"); //доступ через localhost
+//app.Urls.Add("http://80"); //доступ через localhost (видимость в локальной сети)
 
 #endregion
 
