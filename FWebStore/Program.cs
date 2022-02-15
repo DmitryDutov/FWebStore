@@ -28,7 +28,12 @@ app.MapGet("/throw", () =>
 });
 
 //Обработка входящих подключений системы MVC
-app.MapDefaultControllerRoute();
+//app.MapDefaultControllerRoute(); //стандартный маршрут
+app.MapControllerRoute(
+    name:"default",
+    pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
+    ); //кастомный маршрут
+
 
 //Запуск приложения
 app.Run();
