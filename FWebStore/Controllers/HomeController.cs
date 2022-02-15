@@ -9,6 +9,11 @@ namespace FWebStore.Controllers
             //return Content("Данные из первого кортроллера");
             return View("Index");
         }
+
+        public string ConfiguredAction(string id, string value, string nextVal)
+        {
+            return $"ConfiguredAction - {id}: {value} + {nextVal}";
+        }
     }
 }
 
