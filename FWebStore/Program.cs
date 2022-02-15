@@ -16,13 +16,21 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage(); //промежуточное ПО(для удобной отладки)
 }
 
-//Маршрут чтения из файла настроек
-app.MapGet("/", () => app.Configuration["CustomGreetings"]);
+//Система маршрутизации
+app.UseRouting();
+
+////Маршрут чтения из файла настроек
+//app.MapGet("/", () => app.Configuration["CustomGreetings"]);
 //Машрут чтения ошибки
 app.MapGet("/throw", () =>
 {
     throw new ApplicationException("Ошибка приложения");
 });
+
+//Обработка входящих подключений системы MVC
+app.MapDefaultControllerRoute();
+
+//Запуск приложения
 app.Run();
 
 #endregion
