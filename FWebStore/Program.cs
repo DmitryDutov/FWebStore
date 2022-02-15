@@ -10,6 +10,7 @@ services.AddControllersWithViews(); //Основная инфраструкту�
 #region Сборка приложения
 
 var app = builder.Build();
+//app.Urls.Add("http://80"); //доступ через localhost
 
 #endregion
 
@@ -24,8 +25,6 @@ if (app.Environment.IsDevelopment())
 //Система маршрутизации
 app.UseRouting();
 
-////Маршрут чтения из файла настроек
-//app.MapGet("/", () => app.Configuration["CustomGreetings"]);
 //Машрут чтения ошибки
 app.MapGet("/throw", () =>
 {
@@ -33,7 +32,6 @@ app.MapGet("/throw", () =>
 });
 
 //Обработка входящих подключений системы MVC
-//app.MapDefaultControllerRoute(); //стандартный маршрут
 app.MapControllerRoute(
     name:"default",
     pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
