@@ -22,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage(); //промежуточное ПО(для удобной отладки)
 }
 
+app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
+
 //Система маршрутизации
 app.UseRouting();
 
