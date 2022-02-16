@@ -1,7 +1,7 @@
 
+var builder = WebApplication.CreateBuilder(args);
 #region Настройка построителя приложения - определение содержимого
 
-var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 services.AddControllersWithViews(); //Основная инфраструктура MVC
 
