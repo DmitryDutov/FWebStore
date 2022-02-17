@@ -2,7 +2,7 @@
 
 <div class="container">
     <h3>Сотрудники</h3>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,9 +21,15 @@
                     <td>@employee.FirstName</td>
                     <td>@employee.Patronumic</td>
                     <td>@employee.Age</td>
+                    <td>
+                        <a href="~/home/employee/@employee.Id">INFO</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+    
+    <a asp-controller="Home" asp-action="Index">На галвную</a>
+
 </div>
 
