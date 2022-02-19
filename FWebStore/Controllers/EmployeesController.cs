@@ -54,7 +54,7 @@ namespace FWebStore.Controllers
 
         public IActionResult Edit(EmployeeEditViewModel Model)
         {
-            //Обработка VM...
+            //Обработка VM (которая будет происходить в сервисе)
             return RedirectToAction("Index");
         }
 
