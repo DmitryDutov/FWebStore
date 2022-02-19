@@ -27,9 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
-
 app.UseRouting(); //Система маршрутизации
-
+app.UseWelcomePage("/welcome");
 app.MapControllerRoute( //Обработка входящих подключений системы MVC
     name:"default",
     pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
