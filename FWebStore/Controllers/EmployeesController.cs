@@ -29,6 +29,11 @@ namespace FWebStore.Controllers
                 return NotFound();
             return View(employee);
         }
+
+        //public IActionResult Create() => View();
+        public IActionResult Edit(int Id) => View();
+        public IActionResult Delete(int Id) => View();
+
     }
 }
 
