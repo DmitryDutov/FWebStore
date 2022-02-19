@@ -1,5 +1,6 @@
 ﻿using FWebStore.Data;
 using FWebStore.Models;
+using FWebStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FWebStore.Controllers
@@ -31,7 +32,32 @@ namespace FWebStore.Controllers
         }
 
         //public IActionResult Create() => View();
-        public IActionResult Edit(int Id) => View();
+        public IActionResult Edit(int Id)
+        {
+            var employee = __Employees.FirstOrDefault(e => e.Id == Id);
+            if (employee is null)
+            {
+                NotFound();
+            }
+
+            var model = new EmployeeEditViewModel //заполняем VM данными для отправки на форму
+            {
+                Id = employee.Id,
+                LastName = employee.LastName,
+                FirstName = employee.FirstName,
+                Patronumic = employee.Patronumic,
+                Age = employee.Age,
+            };
+
+            return View(model); //данная форма будет отправлена пользователю, после заполения её и нажатия кнопки сформируется POST-запрос
+        }
+
+        public IActionResult Edit(EmployeeEditViewModel Model)
+        {
+            //Обработка VM...
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Delete(int Id) => View();
 
     }
