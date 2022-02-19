@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FWebStore.Controllers
 {
+    [Route("Empl/{action=Index}/{Id?}")]
+    [Route("Staff/{action=Index}/{Id?}")]
     public class EmployeesController : Controller
     {
         public static List<Employee> __Employees = new List<Employee>()
@@ -18,6 +20,7 @@ namespace FWebStore.Controllers
             return View(result);
         }
 
+        [Route("~/employees/info-{Id}")]
         public IActionResult Details(int Id)
         {
             var employee = __Employees.FirstOrDefault(x => x.Id == Id);
