@@ -6,6 +6,8 @@ namespace FWebStore.Controllers
     {
         public IActionResult Index()
         {
+            var  value = ControllerContext.HttpContext.Request.RouteValues.Values;
+
             //return Content("Данные из первого кортроллера");
             return View("Index");
         }

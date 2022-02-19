@@ -1,44 +1,45 @@
-using FWebStore.Infrastructure.Conventions;
-using FWebStore.Infrastructure.Middleware;
 
-var builder = WebApplication.CreateBuilder(args);
+    using FWebStore.Infrastructure.Conventions;
+    using FWebStore.Infrastructure.Middleware;
 
-#region Настройка построителя приложения - определение содержимого. В этой части подключается набор сервисов и бизнесс-логика приложения
+    var builder = WebApplication.CreateBuilder(args);
 
-var services = builder.Services;
-//services.AddControllersWithViews(); //Основная инфраструктура MVC
-//services.AddMvc();                //базовая реализация
-//services.AddControllers();        //для WebApi
+    #region Настройка построителя приложения - определение содержимого. В этой части подключается набор сервисов и бизнесс-логика приложения
 
-services.AddControllersWithViews(opt =>
-{
-    opt.Conventions.Add(new TestConvention());
-});
+    var services = builder.Services;
+    //services.AddControllersWithViews(); //Основная инфраструктура MVC
+    //services.AddMvc();                //базовая реализация
+    //services.AddControllers();        //для WebApi
 
-#endregion
+    services.AddControllersWithViews(opt =>
+    {
+        opt.Conventions.Add(new TestConvention());
+    });
 
-var app = builder.Build();
-//app.Urls.Add("http://80"); //доступ через localhost (видимость в локальной сети)
+    #endregion
 
-#region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
+    var app = builder.Build();
+    //app.Urls.Add("http://80"); //доступ через localhost (видимость в локальной сети)
 
-//Поведение приложения в режиме Development
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage(); //промежуточное ПО(для удобной отладки)
-}
+    #region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
 
-app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
-app.UseRouting(); //Система маршрутизации
-app.Map("/testmid", async context => await context.Response.WriteAsync("Test middleware")); //custom middleware
-app.UseMiddleware<TestMiddleware>(); //custom middleware
-app.UseWelcomePage("/welcome");
-app.MapControllerRoute( //Обработка входящих подключений системы MVC
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
-    ); //кастомный маршрут
+    //Поведение приложения в режиме Development
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage(); //промежуточное ПО(для удобной отладки)
+    }
 
-#endregion
+    app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
+    app.UseRouting(); //Система маршрутизации
+    app.Map("/testmid", async context => await context.Response.WriteAsync("Test middleware")); //custom middleware
+    app.UseMiddleware<TestMiddleware>(); //custom middleware
+    app.UseWelcomePage("/welcome");
+    app.MapControllerRoute( //Обработка входящих подключений системы MVC
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
+        ); //кастомный маршрут
 
-app.Run(); //Запуск приложения
+    #endregion
+
+    app.Run(); //Запуск приложения
 

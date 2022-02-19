@@ -11,6 +11,9 @@
 
         public async Task Invoke(HttpContext Context)
         {
+            var controller_name = Context.Request.RouteValues["controller"]; //получаем имя контроллера из контекста
+            var actoin_name = Context.Request.RouteValues["action"]; //получаем имя действия из контекста
+
             //При каждом подключении сюда будет передаваться объект контекста
             //Мы сможем обработать информацию из Context.Request
             //если хотим чтобы конвейер продолжил работу то вызываем делегат _Next:
@@ -27,3 +30,4 @@
         }
     }
 }
+
