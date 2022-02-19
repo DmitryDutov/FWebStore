@@ -16,6 +16,8 @@ namespace FWebStore.Controllers
         {
             return $"ConfiguredAction - {id}: {value} + {nextVal}";
         }
+
+        public void Throw(string Message) => throw new ApplicationException(Message); //можем передать сообщение в перехватчик как параметр через адресную строку
     }
 }
 
