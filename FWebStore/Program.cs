@@ -1,9 +1,18 @@
 
+using FWebStore.Infrastructure.Conventions;
+
 var builder = WebApplication.CreateBuilder(args);
 #region Настройка построителя приложения - определение содержимого
 
 var services = builder.Services;
-services.AddControllersWithViews(); //Основная инфраструктура MVC
+//services.AddControllersWithViews(); //Основная инфраструктура MVC
+//services.AddMvc();                //базовая реализация
+//services.AddControllers();        //для WebApi
+
+services.AddControllersWithViews(opt =>
+{
+    opt.Conventions.Add(new TestConvention());
+});
 
 #endregion
 
