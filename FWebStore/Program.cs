@@ -1,4 +1,6 @@
 using FWebStore.Infrastructure.Conventions;
+using FWebStore.Infrastructure.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Настройка построителя приложения - определение содержимого. В этой части подключается набор сервисов и бизнесс-логика приложения
@@ -28,9 +30,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
 app.UseRouting(); //Система маршрутизации
+app.Map("/testmid", async context => await context.Response.WriteAsync("Test middleware")); //custom middleware
+app.UseMiddleware<TestMiddleware>(); //custom middleware
 app.UseWelcomePage("/welcome");
 app.MapControllerRoute( //Обработка входящих подключений системы MVC
-    name:"default",
+    name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
     ); //кастомный маршрут
 
