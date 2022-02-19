@@ -1,8 +1,7 @@
-
 using FWebStore.Infrastructure.Conventions;
-
 var builder = WebApplication.CreateBuilder(args);
-#region Настройка построителя приложения - определение содержимого
+
+#region Настройка построителя приложения - определение содержимого. В этой части подключается набор сервисов и бизнесс-логика приложения
 
 var services = builder.Services;
 //services.AddControllersWithViews(); //Основная инфраструктура MVC
@@ -16,14 +15,10 @@ services.AddControllersWithViews(opt =>
 
 #endregion
 
-#region Сборка приложения
-
 var app = builder.Build();
 //app.Urls.Add("http://80"); //доступ через localhost (видимость в локальной сети)
 
-#endregion
-
-#region Конфигурирование объекта обработки входящих соединений
+#region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
 
 //Поведение приложения в режиме Development
 if (app.Environment.IsDevelopment())
@@ -33,27 +28,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
 
-//Система маршрутизации
-app.UseRouting();
+app.UseRouting(); //Система маршрутизации
 
-//Машрут чтения ошибки
-app.MapGet("/throw", () =>
-{
-    throw new ApplicationException("Ошибка приложения");
-});
-
-//Обработка входящих подключений системы MVC
-app.MapControllerRoute(
+app.MapControllerRoute( //Обработка входящих подключений системы MVC
     name:"default",
     pattern: "{controller=Home}/{action=Index}/{id?}" //Установили значения по умолчанию
     ); //кастомный маршрут
 
 #endregion
 
-#region Запуск приложения
-
-//Запуск приложения
-app.Run();
-
-#endregion
+app.Run(); //Запуск приложения
 
