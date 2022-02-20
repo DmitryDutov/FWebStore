@@ -1,6 +1,8 @@
 
     using FWebStore.Infrastructure.Conventions;
     using FWebStore.Infrastructure.Middleware;
+    using FWebStore.Services;
+    using FWebStore.Services.Interfaces;
 
     var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@
     {
         opt.Conventions.Add(new TestConvention());
     });
+
+    services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
 
     #endregion
 
