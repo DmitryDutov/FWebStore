@@ -27,6 +27,10 @@
                     <td>@employee.Age</td>
                     <td>
                         <a asp-controller="Employees" asp-action="Details" asp-route-Id="@employee.Id">INFO</a>
+                        <a asp-controller="Employees" asp-action="Edit" asp-route-Id="@employee.Id">EDIT</a>
+                        <a asp-controller="Employees" asp-action="Delete" asp-route-Id="@employee.Id" class="text-danger">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
                     </td>
                 </tr>
             }
