@@ -1,6 +1,6 @@
 ﻿namespace FWebStore.ViewModels;
 
-public class EmployeeEditViewModel
+public class EmployeeViewModel
 {
     public int Id { get; set; }             //Идентификатор
     public string LastName { get; set; }    //Фамилия

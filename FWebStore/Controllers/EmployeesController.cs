@@ -44,7 +44,7 @@ namespace FWebStore.Controllers
             if (employee is null) 
                 NotFound();
 
-            var model = new EmployeeEditViewModel //заполняем VM данными для отправки на форму
+            var model = new EmployeeViewModel //заполняем VM данными для отправки на форму
             {
                 Id = employee.Id,
                 LastName = employee.LastName,
@@ -57,7 +57,7 @@ namespace FWebStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EmployeeEditViewModel Model)
+        public IActionResult Edit(EmployeeViewModel Model)
         {
             //Обработка VM (которая будет происходить в сервисе)
             //из ViewModel нужно собрать обратно сотрудника
@@ -87,7 +87,7 @@ namespace FWebStore.Controllers
                 return NotFound();
 
             //Заполняем VM данными для отправки на форму
-            var model = new EmployeeEditViewModel //заменить на EmployeeViewModel
+            var model = new EmployeeViewModel //заменить на EmployeeViewModel
             {
                 Id = employee.Id,
                 LastName = employee.LastName,
