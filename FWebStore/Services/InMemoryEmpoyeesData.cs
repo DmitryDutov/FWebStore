@@ -8,7 +8,7 @@ namespace FWebStore.Services
     {
         private readonly ICollection<Employee> _Employees;
         private int _MaxFreeId;
-        public InMemoryEmpoyeesData() //в конструктор можно передавать другие сервисы
+        public InMemoryEmpoyeesData() //в конструктор можно передавать другие сервисы (например логер)
         {
             _Employees = TestData.Employees;
             _MaxFreeId = _Employees.DefaultIfEmpty().Max(e => e?.Id ?? 0) + 1; //получам максимальный Id (имитация работы БД)

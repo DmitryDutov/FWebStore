@@ -35,12 +35,18 @@ namespace FWebStore.Controllers
             return View(employee);
         }
 
-        //public IActionResult Create() => View();
+        //Вызвыем метод Edit из метода Create и передаём ему пустую модель
+        public IActionResult Create() => View("Edit", new EmployeeViewModel());
+
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(int? Id)
         {
+            if (Id is null)
+            {
+                return View(new EmployeeViewModel());
+            }
             //var employee = __Employees.FirstOrDefault(e => e.Id == Id);
-            var employee = __EmployeesData.GetById(Id);
+            var employee = __EmployeesData.GetById((int)Id);
             if (employee is null) 
                 NotFound();
 
@@ -70,7 +76,9 @@ namespace FWebStore.Controllers
                 Age = Model.Age,
             };
 
-            if (! __EmployeesData.Edit(employee))
+            if (Model.Id == 0)
+                __EmployeesData.Add(employee);
+            else if (! __EmployeesData.Edit(employee))
                 return NotFound();
 
             return RedirectToAction("Index");
