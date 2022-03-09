@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FWebStore.Domain.Entities.Base.Interfaces;
 
 namespace FWebStore.Domain.Entities.Base
 {
-    public class Entity
+    public abstract class Entity : IEntity
     {
-
+        public int Id { get; set; }
     }
 }
