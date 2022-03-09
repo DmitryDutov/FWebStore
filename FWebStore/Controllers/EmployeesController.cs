@@ -10,13 +10,17 @@ namespace FWebStore.Controllers
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData __EmployeesData; //Сохраняем полученный объект IEmployeesData в приватном поле
+
+        private readonly ILogger<EmployeesController> _Logger;
+
         //private readonly ICollection<Employee> __Employees; // Изменяем все поля с __Employees на методы интерфейса
-        public EmployeesController(IEmployeesData EmployeesData) //Передаём IEmployeesData (внедряем зависимость от сервиса IEmployeesData)
+        public EmployeesController(IEmployeesData EmployeesData, ILogger<EmployeesController> Logger) //Передаём IEmployeesData (внедряем зависимость от сервиса IEmployeesData)
         {
             __EmployeesData = EmployeesData;
+            _Logger = Logger;
             //__Employees = TestData.Employees;
         }
-        
+
         public IActionResult Index()
         {
             //var result = __Employees;
@@ -31,7 +35,9 @@ namespace FWebStore.Controllers
             var employee = __EmployeesData.GetById(Id);
 
             if (employee == null)
+            {
                 return NotFound();
+            }
             return View(employee);
         }
 
@@ -42,13 +48,15 @@ namespace FWebStore.Controllers
         public IActionResult Edit(int? Id)
         {
             if (Id is null)
-            {
                 return View(new EmployeeViewModel());
-            }
+
             //var employee = __Employees.FirstOrDefault(e => e.Id == Id);
             var employee = __EmployeesData.GetById((int)Id);
-            if (employee is null) 
+            if (employee is null)
+            {
+                _Logger.LogWarning("Сотрудник с Id: {0} не был найден для редактирования", employee.Id);
                 NotFound();
+            }
 
             var model = new EmployeeViewModel //заполняем VM данными для отправки на форму
             {
@@ -59,6 +67,7 @@ namespace FWebStore.Controllers
                 Age = employee.Age,
             };
 
+            _Logger.LogInformation("Сотрудник {0} взят на редактирование", employee);
             return View(model); //данная форма будет отправлена пользователю, после заполения её и нажатия кнопки сформируется POST-запрос
         }
 
@@ -77,9 +86,15 @@ namespace FWebStore.Controllers
             };
 
             if (Model.Id == 0)
+            {
                 __EmployeesData.Add(employee);
-            else if (! __EmployeesData.Edit(employee))
+                _Logger.LogInformation("Создан новый сотрудник {0}", employee);
+            }
+            else if (!__EmployeesData.Edit(employee))
+            {
+                _Logger.LogInformation("Информация о сутруднике {0} изменена", employee);
                 return NotFound();
+            }
 
             return RedirectToAction("Index");
         }
@@ -114,6 +129,7 @@ namespace FWebStore.Controllers
             if (!__EmployeesData.Delete(Id))
                 return NotFound();
 
+            _Logger.LogInformation("Сотрудник с Id: {0} удалён", Id);
             return RedirectToAction("Index");
         }
     }
