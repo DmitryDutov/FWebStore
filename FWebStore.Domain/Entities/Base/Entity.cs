@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FWebStore.Domain.Entities.Base.Interfaces;
+﻿using FWebStore.Domain.Entities.Base.Interfaces;
 
 namespace FWebStore.Domain.Entities.Base
 {
@@ -12,3 +7,4 @@ namespace FWebStore.Domain.Entities.Base
         public int Id { get; set; }
     }
 }
+
