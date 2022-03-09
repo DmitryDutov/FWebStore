@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FWebStore", "FWebStore\FWeb
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{69118C13-0863-469B-B92B-C5D339430C4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{5B5E068B-FFFB-4614-9F26-E15D7EFAE297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "TestConsole\TestConsole.csproj", "{5B5E068B-FFFB-4614-9F26-E15D7EFAE297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FWebStore.Domain", "FWebStore.Domain\FWebStore.Domain.csproj", "{5F0982A9-17BA-479D-8E2F-28002C734C27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{5B5E068B-FFFB-4614-9F26-E15D7EFAE297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B5E068B-FFFB-4614-9F26-E15D7EFAE297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B5E068B-FFFB-4614-9F26-E15D7EFAE297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F0982A9-17BA-479D-8E2F-28002C734C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F0982A9-17BA-479D-8E2F-28002C734C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F0982A9-17BA-479D-8E2F-28002C734C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F0982A9-17BA-479D-8E2F-28002C734C27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
