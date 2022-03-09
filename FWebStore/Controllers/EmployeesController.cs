@@ -74,6 +74,11 @@ namespace FWebStore.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeViewModel Model)
         {
+            //Для проверок ошибок валидации ипользуем свойство ModelState
+            if (!ModelState.IsValid)
+            {
+                return View(Model);
+            }
             //Обработка VM (которая будет происходить в сервисе)
             //из ViewModel нужно собрать обратно сотрудника
             var employee = new Employee
