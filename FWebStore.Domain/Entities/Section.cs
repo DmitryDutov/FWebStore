@@ -7,7 +7,7 @@ namespace FWebStore.Domain.Entities
     {
         public int Order { get; set; }
 
-        public int? ParrentId { get; set; } //ссылка на родительскую секцию. ? -> может не быть родтельской секции
+        public int? ParentId { get; set; } //ссылка на родительскую секцию. ? -> может не быть родтельской секции
     }
 }
 
