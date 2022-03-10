@@ -19,6 +19,7 @@
     });
 
     services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
+    services.AddSingleton<IProductData, InMemoryData>();           //Singleton - потому что InMemory !!!
 
     #endregion
 
