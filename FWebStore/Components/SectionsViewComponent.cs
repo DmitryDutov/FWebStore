@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FWebStore.Services.Interfaces;
+﻿using FWebStore.Services.Interfaces;
 using FWebStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
