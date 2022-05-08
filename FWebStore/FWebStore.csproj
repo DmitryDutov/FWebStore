@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Include="Views\Blogs\Index.cshtml" />
+    <None Include="Views\Shared\Components\Sections\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
