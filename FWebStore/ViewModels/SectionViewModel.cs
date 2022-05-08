@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FWebStore.ViewModels
+﻿namespace FWebStore.ViewModels
 {
     public class SectionViewModel
     {
@@ -15,3 +9,4 @@ namespace FWebStore.ViewModels
         public List<SectionViewModel> ChidSection { get; set; } = new();
     }
 }
+
