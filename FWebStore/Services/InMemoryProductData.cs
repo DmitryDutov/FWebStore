@@ -28,10 +28,10 @@ namespace FWebStore.Services
             //}
 
             //Способ из C#9.0
-            if(Filter is{SectionId: var section_id})
+            if (Filter?.SectionId is {} section_id)
                 query = query.Where(p => p.SectionId == Filter.SectionId);
 
-            if(Filter is{BrandId: var brand_id})
+            if (Filter?.BrandId is { } brand_id)
                 query = query.Where(p => p.BrandId == Filter.BrandId);
 
             return query;
