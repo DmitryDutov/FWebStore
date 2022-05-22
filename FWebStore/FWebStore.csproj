@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FWebStore.DAL\FWebStore.DAL.csproj" />
     <ProjectReference Include="..\FWebStore.Domain\FWebStore.Domain.csproj" />
   </ItemGroup>
 
