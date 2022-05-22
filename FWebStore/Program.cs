@@ -1,8 +1,10 @@
 
+    using FWebStore.DAL.Context;
     using FWebStore.Infrastructure.Conventions;
     using FWebStore.Infrastructure.Middleware;
     using FWebStore.Services;
     using FWebStore.Services.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@
     {
         opt.Conventions.Add(new TestConvention());
     });
+
+    services.AddDbContext<FWebStoreDB>(opt => 
+        opt.UseSqlServer(/*указывем строку подключения*/ builder.Configuration.GetConnectionString("SqlServer"))); //в данном случаем строка подключения указана в файле конфигурации
 
     services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
     services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
