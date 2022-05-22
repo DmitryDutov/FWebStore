@@ -22,6 +22,7 @@
 
     services.AddDbContext<FWebStoreDB>(opt => 
         opt.UseSqlServer(/*указывем строку подключения*/ builder.Configuration.GetConnectionString("SqlServer"))); //в данном случаем строка подключения указана в файле конфигурации
+    services.AddTransient<IDbInitializer, DbInitializer>();
 
     services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
     services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
@@ -30,6 +31,11 @@
 
     var app = builder.Build(); //после построения сервисы превращаются в провайдер сервисов и могут выполнять основную работу
     //app.Urls.Add("http://80"); //доступ через localhost (видимость в локальной сети)
+    await using (var scope = app.Services.CreateAsyncScope())
+    {
+        var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        await db_initializer.InitializeAsync(RemoveBefore: true);
+    }
 
     #region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
 

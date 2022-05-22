@@ -74,9 +74,11 @@ namespace FWebStore.Services
             {
                 await _db.Sections.AddRangeAsync(TestData.Sections, Cancel); //Берём данные для заполнения таблиц из класса TestData
 
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sectons] ON", Cancel); //Поскольку в тестовых данные присвоены Id, то разрешаем программе добавлять такие данные для таблицы Sectons с помощью SQL-запроса
+                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] ON", Cancel); //Поскольку в тестовых данные присвоены Id, то разрешаем программе добавлять такие данные для таблицы Sectons с помощью SQL-запроса
                 await _db.SaveChangesAsync(Cancel); //Сохраняем изменения (все данные прилетают в БД именно во время сохранения)
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sectons] OFF", Cancel); //Отключаем возможность добавлять присвоенные Id
+                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] OFF", Cancel); //Отключаем возможность добавлять присвоенные Id
+
+                await _db.Database.CommitTransactionAsync(Cancel);
             }
 
             _logger.LogInformation("Добавление брендов");
@@ -87,6 +89,8 @@ namespace FWebStore.Services
                 await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Brands] ON", Cancel);
                 await _db.SaveChangesAsync(Cancel); 
                 await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Brands] OFF", Cancel);
+
+                await _db.Database.CommitTransactionAsync(Cancel);
             }
 
             _logger.LogInformation("Добавление товаров");
@@ -97,8 +101,11 @@ namespace FWebStore.Services
                 await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Products] ON", Cancel);
                 await _db.SaveChangesAsync(Cancel); 
                 await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Products] OFF", Cancel);
+
+                await _db.Database.CommitTransactionAsync(Cancel);
             }
             _logger.LogInformation("Инициализация тестовых данных успешно завершена");
         }
     }
 }
+
