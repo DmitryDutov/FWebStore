@@ -4,6 +4,7 @@
     using FWebStore.Infrastructure.Middleware;
     using FWebStore.Services;
     using FWebStore.Services.InMemory;
+    using FWebStore.Services.InSQL;
     using FWebStore.Services.Interfaces;
     using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,8 @@
     services.AddTransient<IDbInitializer, DbInitializer>();
 
     services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
-    services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
+    //services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
+    services.AddScoped<IProductData, SqlProductData>();
 
     #endregion
 
