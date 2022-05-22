@@ -3,6 +3,7 @@
     using FWebStore.Infrastructure.Conventions;
     using FWebStore.Infrastructure.Middleware;
     using FWebStore.Services;
+    using FWebStore.Services.InMemory;
     using FWebStore.Services.Interfaces;
     using Microsoft.EntityFrameworkCore;
 

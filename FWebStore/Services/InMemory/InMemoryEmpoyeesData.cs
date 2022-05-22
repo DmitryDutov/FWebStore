@@ -2,7 +2,7 @@
 using FWebStore.Models;
 using FWebStore.Services.Interfaces;
 
-namespace FWebStore.Services
+namespace FWebStore.Services.InMemory
 {
     public class InMemoryEmpoyeesData : IEmployeesData
     {

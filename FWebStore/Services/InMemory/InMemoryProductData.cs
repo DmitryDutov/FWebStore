@@ -3,7 +3,7 @@ using FWebStore.Domain;
 using FWebStore.Domain.Entities;
 using FWebStore.Services.Interfaces;
 
-namespace FWebStore.Services
+namespace FWebStore.Services.InMemory
 {
     public class InMemoryProductData : IProductData
     {
