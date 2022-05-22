@@ -5,6 +5,7 @@ using FWebStore.Services.Interfaces;
 
 namespace FWebStore.Services.InMemory
 {
+    [Obsolete("Используйте класс WebStore.Services.InSQL.SqlProductData.cs")]
     public class InMemoryProductData : IProductData
     {
         public IEnumerable<Section> GetSections()
