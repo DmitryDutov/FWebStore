@@ -1,5 +1,6 @@
 ﻿using FWebStore.Data;
-using FWebStore.Models;
+//using FWebStore.Models;
+using FWebStore.Domain.Entities;
 using FWebStore.Services.Interfaces;
 
 namespace FWebStore.Services.InMemory

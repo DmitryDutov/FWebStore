@@ -9,6 +9,7 @@ namespace FWebStore.DAL.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         //Создаём конструктор, в нём вызываем базовый конструктор в который передаём options(DbContextOptions)
         public FWebStoreDB(DbContextOptions<FWebStoreDB> options) : base(options)

@@ -1,4 +1,5 @@
-﻿using FWebStore.Models;
+﻿//using FWebStore.Models;
+using FWebStore.Domain.Entities;
 
 namespace FWebStore.Services.Interfaces
 {

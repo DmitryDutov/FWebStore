@@ -1,4 +1,5 @@
-﻿using FWebStore.Models;
+﻿//using FWebStore.Models;
+using FWebStore.Domain.Entities;
 using FWebStore.Services.Interfaces;
 using FWebStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;

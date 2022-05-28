@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 //Для работы с индексами БД нужен пакет Microsoft.EntityFrameworkCore.Abstractions
 namespace FWebStore.Domain.Entities
 {
-    [Index(nameof(Id))]
+    [Index(nameof(Id), IsUnique = true)]
     public class Employee : Entity, IOrderedEntity
     {
         public new int Id { get; set; }             //Идентификатор
