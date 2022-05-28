@@ -26,7 +26,8 @@
         opt.UseSqlServer(/*указывем строку подключения*/ builder.Configuration.GetConnectionString("SqlServer"))); //в данном случаем строка подключения указана в файле конфигурации
     services.AddTransient<IDbInitializer, DbInitializer>();
 
-    services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
+    //services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
+    services.AddScoped<IEmployeesData, SqlEmployeesData>(); //Singleton - потому что InMemory !!!
     //services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
     services.AddScoped<IProductData, SqlProductData>();
 
@@ -37,7 +38,7 @@
     await using (var scope = app.Services.CreateAsyncScope())
     {
         var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        await db_initializer.InitializeAsync(RemoveBefore: false);
+        await db_initializer.InitializeAsync(RemoveBefore: true);
     }
 
     #region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
