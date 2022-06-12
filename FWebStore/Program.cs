@@ -27,8 +27,8 @@
     services.AddTransient<IDbInitializer, DbInitializer>();
 
     //services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
-    services.AddScoped<IEmployeesData, SqlEmployeesData>(); //Singleton - потому что InMemory !!!
-    //services.AddSingleton<IProductData, InMemoryProductData>();           //Singleton - потому что InMemory !!!
+    services.AddScoped<IEmployeesData, SqlEmployeesData>();
+    //services.AddSingleton<IProductData, InMemoryProductData>();  /Singleton - потому что InMemory !!!
     services.AddScoped<IProductData, SqlProductData>();
 
     #endregion

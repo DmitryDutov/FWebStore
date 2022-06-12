@@ -55,6 +55,7 @@ namespace FWebStore.Services
             }
 
             await InitializeProductsAsync(Cansel).ConfigureAwait(false);
+            await InitializeEmployeesAsync(Cansel).ConfigureAwait(false);
 
             _logger.LogInformation("Инициализация БД выполнена успешно");
         }
@@ -64,11 +65,11 @@ namespace FWebStore.Services
             //Проверяем существует ли в секциях хотя-бы одна секция
             if (_db.Sections.Any())
             {
-                _logger.LogInformation("Инициализация тестовых данных не требуется");
+                _logger.LogInformation("Инициализация продуктов не требуется");
                 return; //если да, то ничего делать не требуется
             }
 
-            _logger.LogInformation("Инициализация тестовых данных ...");
+            _logger.LogInformation("Инициализация продуктов ...");
             _logger.LogInformation("Добавление секций");
             await using (await _db.Database.BeginTransactionAsync(Cancel)) //Запрашиваем транзакцию
             {
@@ -104,7 +105,31 @@ namespace FWebStore.Services
 
                 await _db.Database.CommitTransactionAsync(Cancel);
             }
-            _logger.LogInformation("Инициализация тестовых данных успешно завершена");
+            _logger.LogInformation("Инициализация продуктов успешно завершена");
+        }
+        private async Task InitializeEmployeesAsync(CancellationToken Cancel)
+        {
+            //Проверяем существует ли в секциях хотя-бы одна секция
+            if (_db.Employees.Any())
+            {
+                _logger.LogInformation("Инициализация сотрудников не требуется");
+                return; //если да, то ничего делать не требуется
+            }
+
+            _logger.LogInformation("Инициализация сотрудников ...");
+            _logger.LogInformation("Добавление сотрудников");
+            await using (await _db.Database.BeginTransactionAsync(Cancel)) //Запрашиваем транзакцию
+            {
+                await _db.Employees.AddRangeAsync(TestData.Employees, Cancel); //Берём данные для заполнения таблиц из класса TestData
+
+                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employees] ON", Cancel); //Поскольку в тестовых данные присвоены Id, то разрешаем программе добавлять такие данные для таблицы Sectons с помощью SQL-запроса
+                await _db.SaveChangesAsync(Cancel); //Сохраняем изменения (все данные прилетают в БД именно во время сохранения)
+                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employees] OFF", Cancel); //Отключаем возможность добавлять присвоенные Id
+
+                await _db.Database.CommitTransactionAsync(Cancel);
+            }
+
+            _logger.LogInformation("Инициализация сотрудников успешно завершена");
         }
     }
 }

@@ -33,7 +33,8 @@ namespace FWebStore.Services.InSQL
                 return employee.Id;
 
             _db.Employees.Add(employee);
-            return employee.Id;
+
+            return _db.SaveChanges(); //Возвращает Id вновь созданного объекта
         }
 
         public bool Edit(Employee employee)
@@ -41,7 +42,7 @@ namespace FWebStore.Services.InSQL
             if (employee == null)
                 throw new ArgumentException(nameof(employee));
 
-            if (_db.Employees.Contains(employee))
+            if (!_db.Employees.Contains(employee))
                 return true;
 
             var db_employee = GetById(employee.Id);
@@ -58,6 +59,8 @@ namespace FWebStore.Services.InSQL
 
             //Когда будет БД: не забыть вызвать SaveChanges();
             _logger.LogInformation("Информация о сотруднике с Id: {0} была изменена", employee.Id);
+            _db.SaveChanges();
+
             return true;
         }
 

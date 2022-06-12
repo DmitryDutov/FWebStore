@@ -25,7 +25,17 @@ namespace FWebStore.Controllers
         public IActionResult Index()
         {
             //var result = __Employees;
-            var result = __EmployeesData.GetAll();
+            var result = __EmployeesData.GetAll()
+                //.OrderBy(e => e.Order)
+                //.Select(e=> new Employee()
+                //{
+                //    Id = e.Id,
+                //    FirstName = e.FirstName,
+                //    LastName = e.LastName,
+                //    Age = e.Age,
+                //    Patronumic = e.Patronumic,
+                //})
+                ;
             return View(result);
         }
 
@@ -33,13 +43,24 @@ namespace FWebStore.Controllers
         public IActionResult Details(int Id)
         {
             //var employee = __Employees.FirstOrDefault(x => x.Id == Id);
-            var employee = __EmployeesData.GetById(Id);
-
-            if (employee == null)
+            var employee = __EmployeesData.GetById((int)Id);
+            if (employee is null)
             {
-                return NotFound();
+                _Logger.LogWarning("Сотрудник с Id: {0} не был найден для редактирования", employee.Id);
+                NotFound();
             }
-            return View(employee);
+
+            var model = new Employee 
+            {
+                Id = employee.Id,
+                LastName = employee.LastName,
+                FirstName = employee.FirstName,
+                Patronumic = employee.Patronumic,
+                Age = employee.Age,
+            };
+
+            _Logger.LogInformation("Сотрудник {0} взят на редактирование", employee);
+            return View(model); //данная форма будет отправлена пользователю, после заполения её и нажатия кнопки сформируется POST-запрос
         }
 
         //Вызвыем метод Edit из метода Create и передаём ему пустую модель
