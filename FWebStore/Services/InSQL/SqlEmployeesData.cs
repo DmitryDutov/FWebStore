@@ -57,9 +57,8 @@ namespace FWebStore.Services.InSQL
             db_employee.Patronumic = employee.Patronumic;
             db_employee.Age = employee.Age;
 
-            //Когда будет БД: не забыть вызвать SaveChanges();
-            _logger.LogInformation("Информация о сотруднике с Id: {0} была изменена", employee.Id);
             _db.SaveChanges();
+            _logger.LogInformation("Информация о сотруднике с Id: {0} была изменена", employee.Id);
 
             return true;
         }
@@ -74,6 +73,7 @@ namespace FWebStore.Services.InSQL
             }
 
             _db.Employees.Remove(employee);
+            _db.SaveChanges();
             _logger.LogInformation("Сотрудник с Id: {0} был успешно удалён", employee.Id);
             return true;
         }
