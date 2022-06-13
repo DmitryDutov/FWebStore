@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Account\Register.cshtml" />
     <None Include="Views\Blogs\Index.cshtml" />
     <None Include="Views\Shared\Components\Sections\Default.cshtml" />
   </ItemGroup>
