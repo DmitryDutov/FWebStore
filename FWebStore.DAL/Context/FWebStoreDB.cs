@@ -1,9 +1,13 @@
 ﻿using FWebStore.Domain.Entities;
+using FWebStore.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FWebStore.DAL.Context
 {
-    public class FWebStoreDB : DbContext
+    //public class FWebStoreDB : IdentityDbContext //Такой вариант можно использовать если мы не определили User и Role в FWebStore.Domain/Entities
+    //public class FWebStoreDB : IdentityDbContext<User> //Такой вариант можно использовать если указан только User
+    public class FWebStoreDB : IdentityDbContext<User, Role, string> //Такой вариант можно использовать когда опредены и User и Role
     {
         //Описываем какие таблицы нам нужны для работы с БД
         public DbSet<Product> Products { get; set; }
