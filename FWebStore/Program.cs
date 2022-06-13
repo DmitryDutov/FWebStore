@@ -53,6 +53,20 @@
     });
 
     //Конфигурируем систему Cookies
+    services.ConfigureApplicationCookie(opt =>
+    {
+        opt.Cookie.Name = "WebStore.GB"; //Указываем название Cookies
+        opt.Cookie.HttpOnly = true; //Передаём Cookies только по Http
+        opt.Cookie.Expiration = TimeSpan.FromDays(5); //Очищаем Cookies через указанное время
+
+        //Указываем пути по которым будут посылать пользователя
+        opt.LoginPath = "/Account/Login"; //Если пользователю надо авторизоваться ?
+        opt.LogoutPath = "/Account/Logout"; //Если надо выйти ?
+        opt.AccessDeniedPath = "/Account/AccessDenied"; //Если отказано в доступе
+
+        opt.SlidingExpiration = true; //Принудетельно выдавать новый Id после авторизации пользователя
+    });
+
 
     //services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>(); //Singleton - потому что InMemory !!!
     services.AddScoped<IEmployeesData, SqlEmployeesData>();
@@ -79,6 +93,10 @@
 
     app.UseStaticFiles(); //конфигурируем приложение для работы со статическими файлами
     app.UseRouting(); //Система маршрутизации
+
+    app.UseAuthentication(); //Аутентификация системы Identity
+    app.UseAuthorization(); //Авторизация системы Identity
+
     app.Map("/testmid", async context => await context.Response.WriteAsync("Test middleware")); //custom middleware
     app.UseMiddleware<TestMiddleware>(); //custom middleware
     app.UseWelcomePage("/welcome");
