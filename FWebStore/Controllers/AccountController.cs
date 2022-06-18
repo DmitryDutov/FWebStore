@@ -18,7 +18,7 @@ namespace FWebStore.Controllers
         [HttpGet]
         public IActionResult Register() => View(new RegisterUserViewModel()); //действие отправляет пустую ViewModel
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken] //Контроль безопасности
         public async Task<IActionResult> Register(RegisterUserViewModel Model) //действие принимает заполненную ViewModel
         {
             if (!ModelState.IsValid) //проходим валидацию модели
@@ -50,7 +50,7 @@ namespace FWebStore.Controllers
         [HttpGet]
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel{ReturnUrl = ReturnUrl});
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken] //контроль безопасности
         public async Task<IActionResult> Login(LoginViewModel Model) //действие принимает заполненную ViewModel
         {
             if (!ModelState.IsValid) //проходим валидацию модели
