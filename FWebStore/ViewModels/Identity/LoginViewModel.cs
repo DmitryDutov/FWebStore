@@ -18,5 +18,5 @@ public class LoginViewModel
     public bool RememberMe { get; set; } //Запоминать пользователя или нет
 
     [HiddenInput(DisplayValue = false)] //Скрываем поле от отображения
-    public string ReturnUrl { get; set; } //С какой страницы нас перебросило на форму входа (для редиректа при успешном входе)
+    public string? ReturnUrl { get; set; } //С какой страницы нас перебросило на форму входа (для редиректа при успешном входе)
 }

@@ -47,7 +47,40 @@ namespace FWebStore.Controllers
             return View(Model);
         }
 
-        public IActionResult Login() => View();
+        [HttpGet]
+        public IActionResult Login(string ReturnUrl) => View(new LoginViewModel{ReturnUrl = ReturnUrl});
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel Model) //действие принимает заполненную ViewModel
+        {
+            if (!ModelState.IsValid) //проходим валидацию модели
+            {
+                return View(Model); //если неверна, то возвращаем с ошибками
+            }
+
+            var login_result = await _signInManager.PasswordSignInAsync(
+                Model.UserName,
+                Model.Password,
+                Model.RememberMe,
+                false
+            );
+
+            if (login_result.Succeeded)
+            {
+                //return Redirect(Model.ReturnUrl); //НЕ БЕЗОПАСНО !!!
+
+                //if (Url.IsLocalUrl(Model.ReturnUrl)) //Старый способ
+                //{
+                //    return RedirectToAction(Model.ReturnUrl);
+                //}
+
+                return LocalRedirect(Model.ReturnUrl ?? "/");
+            }
+
+            ModelState.AddModelError("", "Неверное имя пользователя или пароль");
+
+            return View(Model);
+        }
         public IActionResult Logout() => RedirectToAction("Index", "Home");
         public IActionResult AccessDenied() => View();
     }
