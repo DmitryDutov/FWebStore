@@ -1,6 +1,5 @@
 ﻿using FWebStore.DAL.Context;
 using FWebStore.Data;
-using FWebStore.Domain.Entities;
 using FWebStore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,14 +21,8 @@ namespace FWebStore.Services
         {
             _logger.LogInformation("Удаление БД...");
             var result = await _db.Database.EnsureDeletedAsync(Cancel).ConfigureAwait(false);
-            if (result)
-            {
-                _logger.LogInformation("Удаление БД выполнено успешно");
-            }
-            else
-            {
-                _logger.LogInformation("Удаление БД не требуется (БД отсутствует");
-            }
+            _logger.LogInformation(
+                result ? "Удаление БД выполнено успешно" : "Удаление БД не требуется (БД отсутствует");
 
             return result;
         }
@@ -101,7 +94,7 @@ namespace FWebStore.Services
             foreach (var section in TestData.Sections)
             {
                 section.Id=0;
-                section.ParentId=0;
+                section.ParentId=null;
             }
 
             //Очищаем брэнды
@@ -137,11 +130,9 @@ namespace FWebStore.Services
             _logger.LogInformation("Добавление сотрудников");
             await using (await _db.Database.BeginTransactionAsync(Cancel)) //Запрашиваем транзакцию
             {
-                await _db.Employees.AddRangeAsync(TestData.Employees, Cancel); //Берём данные для заполнения таблиц из класса TestData
-
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employees] ON", Cancel); //Поскольку в тестовых данные присвоены Id, то разрешаем программе добавлять такие данные для таблицы Sectons с помощью SQL-запроса
-                await _db.SaveChangesAsync(Cancel); //Сохраняем изменения (все данные прилетают в БД именно во время сохранения)
-                await _db.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employees] OFF", Cancel); //Отключаем возможность добавлять присвоенные Id
+                TestData.Employees.ForEach(employee => employee.Id = 0);
+                await _db.Employees.AddRangeAsync(TestData.Employees, Cancel);
+                await _db.SaveChangesAsync(Cancel); //сохраняем изменения
 
                 await _db.Database.CommitTransactionAsync(Cancel);
             }

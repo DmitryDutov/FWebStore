@@ -81,7 +81,7 @@
     await using (var scope = app.Services.CreateAsyncScope())
     {
         var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        await db_initializer.InitializeAsync(RemoveBefore: false);
+        await db_initializer.InitializeAsync(RemoveBefore: true);
     }
 
     #region Конфигурирование объекта обработки входящих соединений. В этой части определяется конвейер обработки входящих подключений
