@@ -57,7 +57,8 @@
     {
         opt.Cookie.Name = "WebStore.GB"; //Указываем название Cookies
         opt.Cookie.HttpOnly = true; //Передаём Cookies только по Http
-        opt.Cookie.Expiration = TimeSpan.FromDays(5); //Очищаем Cookies через указанное время
+        //opt.Cookie.Expiration = TimeSpan.FromDays(5); //Очищаем Cookies через указанное время УСТАРЕЛО !!!
+        opt.ExpireTimeSpan = TimeSpan.FromDays(5);
 
         //Указываем пути по которым будут посылать пользователя
         opt.LoginPath = "/Account/Login"; //Если пользователю надо авторизоваться ?
