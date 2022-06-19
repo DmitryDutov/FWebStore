@@ -2,12 +2,14 @@
 using FWebStore.Domain.Entities;
 using FWebStore.Services.Interfaces;
 using FWebStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FWebStore.Controllers
 {
     //[Route("Empl/{action=Index}/{Id?}")]
     //[Route("Staff/{action=Index}/{Id?}")]
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData __EmployeesData; //Сохраняем полученный объект IEmployeesData в приватном поле
@@ -67,6 +69,7 @@ namespace FWebStore.Controllers
         public IActionResult Create() => View("Edit", new EmployeeViewModel());
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? Id)
         {
             if (Id is null)
@@ -94,6 +97,7 @@ namespace FWebStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(EmployeeViewModel Model)
         {
             //Для проверок ошибок валидации ипользуем свойство ModelState
